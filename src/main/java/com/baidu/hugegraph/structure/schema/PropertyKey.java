@@ -37,6 +37,8 @@ public class PropertyKey extends SchemaElement {
     private Cardinality cardinality;
     @JsonProperty("aggregate_type")
     private AggregateType aggregateType;
+    @JsonProperty("olap")
+    private Boolean olap;
 
     @JsonCreator
     public PropertyKey(@JsonProperty("name") String name) {
@@ -44,6 +46,7 @@ public class PropertyKey extends SchemaElement {
         this.dataType = DataType.TEXT;
         this.cardinality = Cardinality.SINGLE;
         this.aggregateType = AggregateType.NONE;
+        this.olap = false;
     }
 
     @Override
@@ -63,12 +66,16 @@ public class PropertyKey extends SchemaElement {
         return this.aggregateType;
     }
 
+    public boolean olap() {
+        return this.olap;
+    }
+
     @Override
     public String toString() {
         return String.format("{name=%s, cardinality=%s, dataType=%s, " +
-                             "aggregateType=%s, properties=%s}",
+                             "aggregateType=%s, properties=%s, olap=%s}",
                              this.name, this.cardinality, this.dataType,
-                             this.aggregateType, this.properties);
+                             this.aggregateType, this.properties, this.olap);
     }
 
     public PropertyKeyV46 switchV46() {
@@ -108,6 +115,8 @@ public class PropertyKey extends SchemaElement {
         Builder valueSet();
 
         Builder aggregateType(AggregateType aggregateType);
+
+        Builder olap(boolean olap);
 
         Builder calcSum();
 
@@ -250,6 +259,12 @@ public class PropertyKey extends SchemaElement {
         @Override
         public Builder aggregateType(AggregateType aggregateType) {
             this.propertyKey.aggregateType = aggregateType;
+            return this;
+        }
+
+        @Override
+        public Builder olap(boolean olap) {
+            this.propertyKey.olap = olap;
             return this;
         }
 

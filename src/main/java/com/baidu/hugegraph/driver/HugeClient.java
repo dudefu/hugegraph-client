@@ -31,7 +31,7 @@ import com.baidu.hugegraph.version.ClientVersion;
 public class HugeClient implements Closeable {
 
     static {
-        ClientVersion.check();
+//        ClientVersion.check();
     }
     private final RestClient client;
     private VersionManager version;

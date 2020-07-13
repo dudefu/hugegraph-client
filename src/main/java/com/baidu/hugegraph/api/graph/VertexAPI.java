@@ -29,6 +29,7 @@ import com.baidu.hugegraph.client.RestClient;
 import com.baidu.hugegraph.exception.NotAllCreatedException;
 import com.baidu.hugegraph.rest.RestResult;
 import com.baidu.hugegraph.structure.constant.HugeType;
+import com.baidu.hugegraph.structure.graph.BatchOlapPropertyRequest;
 import com.baidu.hugegraph.structure.graph.BatchVertexRequest;
 import com.baidu.hugegraph.structure.graph.Vertex;
 import com.baidu.hugegraph.structure.graph.Vertices;
@@ -72,6 +73,15 @@ public class VertexAPI extends GraphAPI {
         RestResult result = this.client.put(this.batchPath(), null,
                                             request, headers);
         return result.readList(this.type(), Vertex.class);
+    }
+
+    public int update(BatchOlapPropertyRequest request) {
+        this.client.checkApiVersion("0.56", "batch property update");
+        MultivaluedHashMap<String, Object> headers = new MultivaluedHashMap<>();
+        headers.putSingle("Content-Encoding", BATCH_ENCODING);
+        String path = String.join("/", this.path(), "olap/batch");
+        RestResult result = this.client.put(path, null, request, headers);
+        return (int) result.readObject(Map.class).get("size");
     }
 
     public Vertex append(Vertex vertex) {
