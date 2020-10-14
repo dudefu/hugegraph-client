@@ -26,7 +26,7 @@ public class ClientVersion {
 
     static {
         // Check versions of the dependency packages
-//        ClientVersion.check();
+        ClientVersion.check();
     }
 
     public static final String NAME = "hugegraph-client";
