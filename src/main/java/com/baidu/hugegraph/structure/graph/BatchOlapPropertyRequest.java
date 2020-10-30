@@ -36,7 +36,7 @@ public class BatchOlapPropertyRequest {
         this.propertyKey = null;
     }
 
-    public static Builder createBuilder() {
+    public static Builder builder() {
         return new Builder();
     }
 
@@ -51,7 +51,7 @@ public class BatchOlapPropertyRequest {
 
         private BatchOlapPropertyRequest req;
 
-        public Builder() {
+        private Builder() {
             this.req = new BatchOlapPropertyRequest();
         }
 
